@@ -70,6 +70,39 @@ bool encontrarSubdominio(double a, double b, double c, double d, double e, doubl
 }
 
 
+/*
+funcion que grafica las funciones cuadraticas generadas a partir de las constantes elegidas por el usuario,
+en estas se indica el subdomio encontrado de valores de x para los cuales el porcentaje de error calculado
+es menor que el porcentaje de error proporcionado por el usuario
+*/
+void graficador(double a, double b, double c, double d, double e, double f, double inicio, double fin){
+    // se utiliza la biblioteca de graficacion gnuplot
+    FILE *fp = popen("gnuplot -persist", "w");
+
+        // valores para el dominio x, con 10 valores adelante y 10 valores atras
+        fprintf(fp, "set xrange [%f:%f]\n", inicio - 10, fin + 10);
+
+        // se marca el subdominio encontrado, con lineas - de color negro y grosor 2
+        fprintf(fp, "set arrow from %f, graph 0 to %f, graph 1 nohead lc rgb 'black' lw 2 dt '-' \n", inicio, inicio);
+        fprintf(fp, "set arrow from %f, graph 0 to %f, graph 1 nohead lc rgb 'black' lw 2 dt '-' \n", fin, fin);
+
+        // escribe el primer valor del subdominio
+        fprintf(fp, "set label 1 \"%.2f\" at %f, graph 0.1 right font '1'\n", inicio, inicio);
+
+        // escribe el ultimo valor del subdominio
+        fprintf(fp, "set label 2 \"%.2f\" at %f, graph 0.1 left font '1'\n", fin, fin);
+
+        // se escriben las dos dos funciones cuadráticas
+        fprintf(fp, "f(x) = %f*x**2 +%f*x +%f \n", a, b, c);
+        fprintf(fp, "g(x) = %f*x**2 +%f*x +%f \n", d, e, f);
+
+        // se trazan las graficas de las dos funciones cuadraticas, con su respectivo titulo
+        fprintf(fp, "plot f(x) with lines lw 2 lc rgb 'blue' title 'f(x) = %.2fx^2 + %.2fx + %.2f', "
+                "g(x) with lines lw 2 lc rgb 'red' title 'g(x) = %.2fx^2 + %.2fx + %.2f'\n", a, b, c, d, e, f);
+        fclose(fp);
+}
+
+
 /*bloque principal: se declaran las variables para los coeficientes de las funciones 
 cuadraticas, el porcentaje maximo de error y los limites del subdominio*/
 int main() {
@@ -98,9 +131,10 @@ int main() {
     // se especifica que el rango de x es [-100000,100000] con incremtos de 0.1
     bool encontrado = encontrarSubdominio(a, b, c, d, e, f, porcentaje_max, -100000, 100000, 0.1, &inicio, &fin);
 
-    // si se encuentra un subdominio aceptable se imprime
+    // si se encuentra un subdominio aceptable se imprime y se grafican las funciones, indicando el subdominio encontrado.
     if (encontrado) {
         printf("Subdominio aceptable: [%.2f, %.2f]\n", inicio, fin);
+        graficador(a, b, c, d, e, f, inicio, fin);
 
     // sino, se imprime este mensaje
     } else {
