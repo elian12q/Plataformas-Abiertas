@@ -1,3 +1,17 @@
+/*
+Elizabeth Matamoros Bojorge C04652
+Kevin Jimenez Acuna C13876
+Elian Jimenez Quesada C13983
+
+Programa que recibe dos funciones cuadraticas en donde el usuario ingresa
+los valores de los parametros, luego se le solicita al usuario un porcentaje
+de error entre 0 y 100, el programa calcula la diferencia entre ambas
+funciones, despues se calcula un subdominio donde la diferencia entre ambas
+funciones no supere el porcentaje de error elegido por el usuario. Ademas
+se grafican las dos funciones ingresadas en donde se indica el subdominio
+encontrado.
+*/
+
 #include <stdio.h> // biblioteca para funciones de entrada y salida estandar
 #include <math.h> // biblioteca para funciones matematicas y operaciones comunes
 #include <stdbool.h> // biblioteca para tipos de datos: bool, true y false
