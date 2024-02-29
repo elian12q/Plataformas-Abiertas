@@ -1,3 +1,15 @@
+/*
+Elizabeth Matamoros Bojorge C04652
+Kevin Jimenez Acuna C13876
+Elian Jimenez Quesada C13983
+
+El programa consiste en un juego Tik Tak Toe, cuenta con 9 botones,
+en una plantilla 3x3, inicialmente vacia, los botones que al ser
+presionados cambian su imagen por una X o un O. Una vez presionados
+no pueden cambiar más su imagen. El juego termina cuando se forman 3
+figuras del mismo tipo consecutivas (verticalmente, horizontalmente o en diagonal).  
+*/
+
 #include <stdio.h>
 #include <string.h>
 #include <gtk/gtk.h>
